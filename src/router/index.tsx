@@ -1,3 +1,6 @@
+/**
+ * 由于本文件中使用了<>语法，这个是tsx语法，因此文件名要使用.tsx后缀
+ */
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 

@@ -14,6 +14,12 @@ import Star from '../pages/manage/Star'
 import Edit from '../pages/question/Edit'
 import Stat from '../pages/question/Stat'
 
+export const HOME_PATHNAME = '/'
+
+export const LOGIN_PATHNAME = '/login'
+export const REGISTER_PATHNAME = '/register'
+export const MANAGE_INDEX_PATHNAME = '/manage/list'
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -24,7 +30,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'login',
+        path: '/login',
         element: <Login />,
       },
       {

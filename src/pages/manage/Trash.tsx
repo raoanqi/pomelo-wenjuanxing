@@ -1,49 +1,16 @@
 import React, { FC, useState } from 'react'
 import { useTitle } from 'ahooks'
-import { Typography, Empty, Table, Tag, Space, Button } from 'antd'
+import { Typography, Empty, Table, Tag, Space, Button, Spin } from 'antd'
 import ListSearch from '../../components/ListSearch'
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 import styles from './common.module.scss'
 
 const { Title } = Typography
 
-const rawData = [
-  {
-    _id: 'q1',
-    title: '问卷1',
-    isPublished: false,
-    isStar: false,
-    answerCount: 5,
-    createdAt: '2024-08-19',
-  },
-  {
-    _id: 'q2',
-    title: '问卷2',
-    isPublished: true,
-    isStar: false,
-    answerCount: 5,
-    createdAt: '2024-08-19',
-  },
-  {
-    _id: 'q3',
-    title: '问卷3',
-    isPublished: false,
-    isStar: true,
-    answerCount: 3,
-    createdAt: '2024-08-16',
-  },
-  {
-    _id: 'q4',
-    title: '问卷4',
-    isPublished: true,
-    isStar: false,
-    answerCount: 6,
-    createdAt: '2024-08-19',
-  },
-]
-
 const Trash: FC = () => {
   useTitle('我的问卷')
-  const [questionList, setQuestionList] = useState(rawData)
+  const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true })
+  const { list = [], total = 0 } = data
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const tableColumns = [
     {
@@ -84,7 +51,7 @@ const Trash: FC = () => {
       </div>
       <div style={{ border: '1px solid #e8e8e8' }}>
         <Table
-          dataSource={questionList}
+          dataSource={list}
           columns={tableColumns}
           pagination={false}
           rowKey={q => q._id}
@@ -110,8 +77,13 @@ const Trash: FC = () => {
         </div>
       </div>
       <div className={styles.content}>
-        {questionList.length === 0 && <Empty description={'暂无数据'} />}
-        {questionList.length > 0 && TableElem}
+        {loading && (
+          <div style={{ textAlign: 'center' }}>
+            <Spin />
+          </div>
+        )}
+        {!loading && list.length === 0 && <Empty description={'暂无数据'} />}
+        {!loading && list.length > 0 && TableElem}
       </div>
     </>
   )

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Typography } from 'antd'
 import { MANAGE_INDEX_PATHNAME } from '../router'
@@ -8,6 +8,7 @@ const { Title, Paragraph } = Typography
 
 const Home: FC = () => {
   const nav = useNavigate()
+  useEffect(() => {}, [])
   return (
     <div className={styles.container}>
       <div className={styles.info}>
